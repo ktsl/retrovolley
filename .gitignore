@@ -1,0 +1,41 @@
+# Java
+bin
+target
+pom.xml.*
+
+# osx noise
+.DS_Store
+*.ipa
+*.swp
+*~.nib
+
+
+# following entries according to
+# http://stackoverflow.com/questions/16736856/what-should-be-in-my-gitignore-for-an-android-studio-project
+
+# generated files
+build/
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+.settings
+eclipsebin
+
+# Android Studio
+.idea/
+.gradle/
+out/
+/*/local.properties
+/*/out
+/*/*/build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
