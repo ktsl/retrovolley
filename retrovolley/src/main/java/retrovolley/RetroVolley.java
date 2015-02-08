@@ -17,13 +17,11 @@
 package retrovolley;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.DiskBasedCache;
-import com.sun.istack.internal.Nullable;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -186,7 +184,6 @@ public class RetroVolley {
      * @param name The endpoint name
      * @return {@link retrovolley.EndpointAdapter} associated with name
      */
-    @Nullable
     public EndpointAdapter getAdapter(String name) {
         if (endpointsMap == null || endpointsMap.isEmpty()) {
             throw new IllegalStateException("No supported endpoints");
