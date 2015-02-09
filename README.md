@@ -3,6 +3,7 @@ RetroVolley
 
 Type-safe REST wrapper for Android Volley library. Inspired by [Retrofit][1]
 
+<!---
 Download
 --------
 
@@ -20,6 +21,7 @@ Gradle:
 ```groovy
 compile 'retrovolley:retrovolley:0.2.0'
 ```
+-->
 
 License
 =======
