@@ -26,7 +26,7 @@
         <version>7</version>
     </parent>
 
-    <groupId>retrovolley</groupId>
+    <groupId>com.google.code.retrovolley</groupId>
     <artifactId>parent</artifactId>
     <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>

@@ -11,7 +11,7 @@ Maven:
 
 ```xml
 <dependency>
-  <groupId>retrovolley</groupId>
+  <groupId>com.google.code.retrovolley</groupId>
   <artifactId>retrovolley</artifactId>
   <version>0.2.0</version>
 </dependency>
@@ -19,7 +19,7 @@ Maven:
 
 Gradle:
 ```groovy
-compile 'retrovolley:retrovolley:0.2.0'
+compile 'com.google.code.retrovolley:retrovolley:0.2.0'
 ```
 -->
 
