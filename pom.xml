@@ -90,7 +90,7 @@
     <scm>
         <url>https://github.com/ktsl/retrovolley</url>
         <connection>scm:git:git://github.com/ktsl/retrovolley.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:ktsl/retrovolley.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/ktsl/retrovolley.git</developerConnection>
     </scm>
 
     <issueManagement>
