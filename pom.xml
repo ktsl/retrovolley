@@ -40,6 +40,35 @@
         <module>sample</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <properties>
         <!-- Defaults -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,7 +91,6 @@
         <url>https://github.com/ktsl/retrovolley</url>
         <connection>scm:git:git://github.com/ktsl/retrovolley.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:ktsl/retrovolley.git</developerConnection>
-        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
@@ -113,7 +141,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>3.0</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
