@@ -39,7 +39,7 @@
 
     <groupId>com.google.code.retrovolley</groupId>
     <artifactId>parent</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>RetroVolley (Parent)</name>
@@ -102,7 +102,7 @@
         <url>https://github.com/ktsl/retrovolley</url>
         <connection>scm:git:git://github.com/ktsl/retrovolley.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/ktsl/retrovolley.git</developerConnection>
-      <tag>0.2.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <issueManagement>
