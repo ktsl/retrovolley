@@ -25,6 +25,19 @@
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
+    
+     <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url> https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <groupId>com.google.code.retrovolley</groupId>
     <artifactId>parent</artifactId>
