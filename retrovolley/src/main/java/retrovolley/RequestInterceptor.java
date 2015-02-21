@@ -17,7 +17,7 @@
 package retrovolley;
 
 import com.android.volley.AuthFailureError;
-import retrovolley.request.PojoRequest;
+import retrovolley.request.RetroRequest;
 
 /**
  * Convenient way to manipulate each request in endpoint
@@ -32,6 +32,6 @@ public interface RequestInterceptor {
      * @param request - request object to execute
      * @throws AuthFailureError in case
      */
-    public void intercept(PojoRequest<?> request) throws AuthFailureError;
+    public void intercept(RetroRequest<?> request) throws AuthFailureError;
 
 }

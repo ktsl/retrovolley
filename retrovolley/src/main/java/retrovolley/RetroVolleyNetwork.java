@@ -33,7 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ByteArrayPool;
 import com.android.volley.toolbox.HttpStack;
 import retrovolley.converter.Converter;
-import retrovolley.request.PojoRequest;
+import retrovolley.request.RetroRequest;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -47,7 +47,6 @@ import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * A network performing Volley requests over an {@link HttpStack}.
@@ -81,8 +80,8 @@ class RetroVolleyNetwork implements Network {
 
     @Override
     public NetworkResponse performRequest(Request<?> req) throws VolleyError {
-        if (req instanceof PojoRequest) {
-            PojoRequest<?> request = (PojoRequest<?>) req;
+        if (req instanceof RetroRequest) {
+            RetroRequest<?> request = (RetroRequest<?>) req;
 
             EndpointAdapter adapter = request.getEndpointAdapter();
             HttpStack stack = adapter.getHttpStack();

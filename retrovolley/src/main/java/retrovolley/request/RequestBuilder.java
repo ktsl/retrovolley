@@ -278,10 +278,10 @@ public class RequestBuilder<T> {
      *
      * @return A new instance of PojoRequest.
      */
-    public PojoRequest<T> build() {
+    public RetroRequest<T> build() {
 
         /* Create request */
-        PojoRequest<T> request = new PojoRequest<T>(
+        RetroRequest<T> request = new RetroRequest<T>(
                 mRequestInfo.getMethod(),
                 buildUrl(),
                 mRequestListener,

@@ -37,7 +37,7 @@ import java.util.Map;
  * @author Bogdan Nistor
  * @author Serghei Lotutovici
  */
-public class PojoRequest<T> extends Request<T> {
+public class RetroRequest<T> extends Request<T> {
 
     /**
      * // TODO To be removed
@@ -73,7 +73,7 @@ public class PojoRequest<T> extends Request<T> {
      *
      * @param type Response class object
      */
-    PojoRequest(
+    RetroRequest(
             int method,
             String url,
             RequestListener<T> requestListener,
