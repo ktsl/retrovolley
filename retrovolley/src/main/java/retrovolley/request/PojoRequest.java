@@ -16,6 +16,8 @@
  */
 package retrovolley.request;
 
+import android.util.Pair;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
@@ -28,6 +30,7 @@ import retrovolley.EndpointAdapter;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,7 +55,7 @@ public class PojoRequest<T> extends AbstractRequest<T> {
             String url,
             RequestListener<T> requestListener,
             Map<String, String> headers,
-            Map<String, String> postParams,
+            List<Pair<String, String>> postParams,
             boolean shouldCache,
             long cacheTimeInMillis,
             Type type,

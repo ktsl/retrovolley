@@ -16,15 +16,20 @@
  */
 package retrovolley.request;
 
+import android.util.Pair;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import retrovolley.RetroVolley;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrovolley.RetroVolley;
 
 /**
  * An abstract request class that defines the basic request build logic for all api calls.
@@ -48,7 +53,7 @@ abstract class AbstractRequest<T> extends Request<T> {
     /**
      * Request post params. Will be ignored if mJsonBody is set.
      */
-    private Map<String, String> mParams;
+    private List<Pair<String, String>> mParams;
 
     /**
      * Request headers.
@@ -81,7 +86,7 @@ abstract class AbstractRequest<T> extends Request<T> {
             String url,
             RequestListener<T> requestListener,
             Map<String, String> headers,
-            Map<String, String> params,
+            List<Pair<String, String>> params,
             boolean shouldCache,
             long cacheTimeInMillis) {
         super(method, url, requestListener);
@@ -110,7 +115,7 @@ abstract class AbstractRequest<T> extends Request<T> {
             String url,
             RequestListener<T> requestListener,
             Map<String, String> headers,
-            Map<String, String> params) {
+            List<Pair<String, String>> params) {
         this(method, url, requestListener, headers, params, false, DEFAULT_CACHE_TIME_MILLIS);
     }
 
@@ -125,7 +130,8 @@ abstract class AbstractRequest<T> extends Request<T> {
             int method,
             String url,
             RequestListener<T> requestListener) {
-        this(method, url, requestListener, new HashMap<String, String>(), new HashMap<String, String>());
+        this(method, url, requestListener, new HashMap<String, String>(), new ArrayList<Pair<String, String>>() {
+        });
     }
 
     /**
@@ -140,7 +146,7 @@ abstract class AbstractRequest<T> extends Request<T> {
             int method,
             String url,
             Map<String, String> headers,
-            Map<String, String> params) {
+            List<Pair<String, String>> params) {
         this(method, url, null, headers, params);
     }
 
@@ -227,8 +233,8 @@ abstract class AbstractRequest<T> extends Request<T> {
                 postParams = new HashMap<String, String>();
             }
 
-            for (Map.Entry<String, String> postParamEntry : mParams.entrySet()) {
-                postParams.put(postParamEntry.getKey(), postParamEntry.getValue());
+            for (Pair<String, String> postParamsPair : mParams) {
+                postParams.put(postParamsPair.first, postParamsPair.second);
             }
         }
 

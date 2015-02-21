@@ -16,6 +16,8 @@
  */
 package retrovolley.request;
 
+import android.util.Pair;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RetryPolicy;
 import org.apache.http.NameValuePair;
@@ -24,6 +26,7 @@ import org.apache.http.message.BasicNameValuePair;
 import retrovolley.rest.Hateoasles;
 import retrovolley.rest.RestCall;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +53,7 @@ public class RequestBuilder<T> {
     /**
      * Request parameters
      */
-    private Map<String, String> mParams;
+    private List<Pair<String, String>> mParams;
 
     /**
      * Additional headers specified by the request builder
@@ -127,7 +130,7 @@ public class RequestBuilder<T> {
     private RequestBuilder(RequestInfo requestInfo) {
         super();
         mBody = null;
-        mParams = new HashMap<String, String>();
+        mParams = new ArrayList<Pair<String, String>>();
         mHeaders = new HashMap<String, String>();
         mRestParams = new HashMap<String, String>();
         mShouldCache = false;
@@ -137,7 +140,7 @@ public class RequestBuilder<T> {
         }
     }
 
-    protected Map<String, String> getParams() {
+    protected List<Pair<String, String>> getParams() {
         return mParams;
     }
 
@@ -168,7 +171,23 @@ public class RequestBuilder<T> {
      * @return The same builder instance
      */
     public RequestBuilder addParam(String key, String value) {
-        mParams.put(key, value);
+        mParams.add(Pair.create(key, value));
+        return this;
+    }
+
+    /**
+     * Add an array parameter for the request. <br>
+     * <b>Note: </b> If {@link RequestBuilder#setBody(java.lang.String)}
+     * is called, all parameters will be ignored.
+     *
+     * @param key   The array parameter key
+     * @param values The array parameter values
+     * @return The same builder instance
+     */
+    public RequestBuilder addParams(String key, Iterable<String> values) {
+        for (String value : values) {
+            mParams.add(Pair.create(key, value));
+        }
         return this;
     }
 
@@ -355,7 +374,7 @@ public class RequestBuilder<T> {
      * @param params The parameters map
      * @return A new url with appended parameters
      */
-    public static String buildGETUrl(String url, Map<String, String> params) {
+    public static String buildGETUrl(String url, List<Pair<String, String>> params) {
         final StringBuilder urlBuilder = new StringBuilder(url);
 
         /* Simple null check */
@@ -367,8 +386,8 @@ public class RequestBuilder<T> {
 
             /* Create GET parameters */
             List<NameValuePair> getParams = new LinkedList<NameValuePair>();
-            for (Map.Entry<String, String> param : params.entrySet()) {
-                getParams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
+            for (Pair<String, String> param : params) {
+                getParams.add(new BasicNameValuePair(param.first, param.second));
             }
 
             urlBuilder.append(URLEncodedUtils.format(getParams, "utf-8"));
