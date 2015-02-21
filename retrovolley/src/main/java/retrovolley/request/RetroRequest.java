@@ -40,12 +40,6 @@ import java.util.Map;
 public class RetroRequest<T> extends Request<T> {
 
     /**
-     * // TODO To be removed
-     * Request Listener
-     */
-    private final RequestListener<T> mRequestListener;
-
-    /**
      * Request post params. Will be ignored if mJsonBody is set.
      */
     private Map<String, String> mParams;
@@ -65,6 +59,7 @@ public class RetroRequest<T> extends Request<T> {
      */
     private long mCacheTimeInMillis;
 
+    private final Callback<T> mCallback;
     private final Type mType;
     private final EndpointAdapter mEndpointAdapter;
 
@@ -76,7 +71,7 @@ public class RetroRequest<T> extends Request<T> {
     RetroRequest(
             int method,
             String url,
-            RequestListener<T> requestListener,
+            final Callback<T> callback,
             Map<String, String> headers,
             Map<String, String> postParams,
             boolean shouldCache,
@@ -84,9 +79,9 @@ public class RetroRequest<T> extends Request<T> {
             Type type,
             RetryPolicy retryPolicy,
             EndpointAdapter endpointAdapter) {
-        super(method, url, requestListener);
+        super(method, url, null);
 
-        mRequestListener = requestListener;
+        mCallback = callback;
         mHeaders = headers;
         mParams = postParams;
         mCacheTimeInMillis = cacheTimeInMillis;
@@ -100,8 +95,15 @@ public class RetroRequest<T> extends Request<T> {
 
     @Override
     protected void deliverResponse(T response) {
-        if (mRequestListener != null) {
-            mRequestListener.onResponse(response);
+        if (mCallback != null) {
+            mCallback.success(response, null);
+        }
+    }
+
+    @Override
+    public void deliverError(VolleyError error) {
+        if (mCallback != null) {
+            mCallback.failure(error);
         }
     }
 
@@ -232,9 +234,9 @@ public class RetroRequest<T> extends Request<T> {
      * Execute the request by adding it to the applications request queue
      */
     public void execute() {
-        /* Notify the listener that the request is being added to the queue */
-        if (mRequestListener != null) {
-            mRequestListener.onExecute();
+        /* Notify the callback that the request is being added to the queue */
+        if (mCallback != null) {
+            mCallback.before();
         }
 
         /* Add request to the applications request queue */

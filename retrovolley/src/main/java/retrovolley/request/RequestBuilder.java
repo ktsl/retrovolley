@@ -70,7 +70,7 @@ public class RequestBuilder<T> {
     /**
      * Request flow listener
      */
-    private RequestListener<T> mRequestListener;
+    private Callback<T> mCallback;
 
     /**
      * Should cache flag
@@ -224,14 +224,13 @@ public class RequestBuilder<T> {
     }
 
     /**
-     * Set a generic smart request listener, which will result in a more convient way of error
-     * handling
+     * Set the request callback
      *
-     * @param mRequestListener An instance of the smart request listener
+     * @param callback The callback to set
      * @return Same builder instance
      */
-    public RequestBuilder setRequestListener(RequestListener<T> mRequestListener) {
-        this.mRequestListener = mRequestListener;
+    public RequestBuilder setCallback(Callback<T> callback) {
+        mCallback = callback;
         return this;
     }
 
@@ -284,7 +283,7 @@ public class RequestBuilder<T> {
         RetroRequest<T> request = new RetroRequest<T>(
                 mRequestInfo.getMethod(),
                 buildUrl(),
-                mRequestListener,
+                mCallback,
                 getHeaders(),
                 getParams(),
                 getShouldCache(),

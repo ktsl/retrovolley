@@ -19,9 +19,10 @@ package retrovolley.sample.client;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
+import retrovolley.request.Callback;
 import retrovolley.request.RequestBuilder;
-import retrovolley.request.RequestListener;
 import retrovolley.sample.R;
 import retrovolley.sample.github.GitHubCalls;
 
@@ -36,19 +37,20 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mTextView = (TextView) findViewById(R.id.text);
         new RequestBuilder<String>(GitHubCalls.ROOT)
-                .setRequestListener(new RequestListener<String>() {
+                .setCallback(new Callback<String>() {
                     @Override
-                    public void onExecute() {
+                    public void success(String body, NetworkResponse response) {
+                        mTextView.setText(body);
                     }
 
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void failure(VolleyError error) {
                         mTextView.setText(error.getMessage());
                     }
 
                     @Override
-                    public void onResponse(String response) {
-                        mTextView.setText(response);
+                    public void before() {
+
                     }
                 }).execute();
     }
