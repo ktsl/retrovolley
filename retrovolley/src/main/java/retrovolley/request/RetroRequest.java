@@ -37,7 +37,7 @@ import java.util.Map;
  * @author Bogdan Nistor
  * @author Serghei Lotutovici
  */
-public class RetroRequest<T> extends Request<T> {
+public class RetroRequest<T> extends Request<RetroResponse<T>> {
 
     /**
      * Request post params. Will be ignored if mJsonBody is set.
@@ -94,9 +94,9 @@ public class RetroRequest<T> extends Request<T> {
 
 
     @Override
-    protected void deliverResponse(T response) {
+    protected void deliverResponse(RetroResponse<T> response) {
         if (mCallback != null) {
-            mCallback.success(response, null);
+            mCallback.success(response.body, response.networkResponse);
         }
     }
 
@@ -193,7 +193,7 @@ public class RetroRequest<T> extends Request<T> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Response<T> parseNetworkResponse(NetworkResponse response) {
+    public Response<RetroResponse<T>> parseNetworkResponse(NetworkResponse response) {
         Logging.d("Parsing network response");
         /* Get the response data */
         String json;
@@ -220,8 +220,8 @@ public class RetroRequest<T> extends Request<T> {
 
             /* Return the parsed result in a response wrapper */
             return shouldCache() ?
-                    Response.success(result, InternalHttpHeaderParser.parseIgnoreCacheHeaders(response, getCacheTimeInMillis())) :
-                    Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
+                    Response.success(new RetroResponse<T>(result, response), InternalHttpHeaderParser.parseIgnoreCacheHeaders(response, getCacheTimeInMillis())) :
+                    Response.success(new RetroResponse<T>(result, response), HttpHeaderParser.parseCacheHeaders(response));
 
         } catch (ConversionException ce) {
             /* Throw a general exception error */

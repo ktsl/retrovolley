@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
                 .setCallback(new Callback<String>() {
                     @Override
                     public void success(String body, NetworkResponse response) {
-                        mTextView.setText(body);
+                        mTextView.setText(body + "\n\n" + response.statusCode);
                     }
 
                     @Override
